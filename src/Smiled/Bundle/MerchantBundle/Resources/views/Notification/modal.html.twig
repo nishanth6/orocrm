@@ -1,0 +1,95 @@
+{% block content %}
+
+    <!-- Modal -->
+    <div class="modal fade setmodal" id="pickMerchant" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Merchant</h4>
+                </div>
+                <div class="modal-body">
+                    <center><select  class="form-control merchants_list"  style="width:300px;">
+
+                        </select></center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade setmodal" id="pickSmiledUser" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Smiled User</h4>
+                </div>
+                <div class="modal-body">
+                    <center><select  class="form-control smiledusers_list"  style="width:300px;">
+
+                        </select></center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade setmodal" id="pickDistanceMerchant" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Merchant</h4>
+                </div>
+                <div class="modal-body">
+                    <center><select  class="form-control  dist_merchants_list"  style="width:300px;">
+
+                        </select></center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        .setmodal{
+            margin: 0 auto;
+            width:100%;
+
+        }
+        .modal{
+            background: none! important;
+        }
+        .modal-backdrop, .modal-backdrop.fade.in {
+            opacity: 0;
+            z-index: 0;
+        }
+
+        .modal-backdrop.in {
+            filter: alpha(opacity=50);
+            opacity: 0;
+        }
+
+    </style>
+
+{% endblock content %}

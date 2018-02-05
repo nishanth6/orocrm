@@ -1,0 +1,4 @@
+ 
+app:
+    resource: "@MerchantBundle/Controller/NotificationController.php"
+    type:     annotation

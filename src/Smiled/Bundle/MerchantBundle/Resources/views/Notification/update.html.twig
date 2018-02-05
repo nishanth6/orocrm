@@ -1,0 +1,421 @@
+{% extends 'MerchantBundle:actions:ajax_ui.html.twig' %}
+
+{# extends "OroUIBundle:Default:index.html.twig" #}
+{% set pageTitle = 'NOTIFICATION' %}
+{% block smiled_css %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset("public/css/notifications/notification.css") }}">
+    <link rel="stylesheet" href="{{ asset("public/css/font-awesome/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("public/css/bootstrap.min.css") }}">
+
+
+    <link rel="stylesheet" href="{{ asset("public/css/jquery-ui.css") }}">
+    <link href="{{ asset("public/css/notifications/imageuploadify.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("public/css/notifications/bootstrap-toggle.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("public/css/notifications/bootstrap-datetimepicker.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset("public/css/notifications/jquery.timepicker.min.css") }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+{%endblock smiled_css %}
+{% block smiled_js %}
+    {{ parent() }}
+ 
+    <script src="{{ asset("public/js/notifications/imageuploadify.min.js") }}"></script>
+    <script src="{{ asset("public/js/bootstrap.min.js") }}"></script>
+    <script src="{{ asset("public/js/notifications/notifications-ui.js") }}"></script>
+    <script type="text/javascript">
+        var getCampaigns = "{{ path('notification_getcampaigns') }}"; 
+        var getMerchants = "{{ path('notification_getmerchants') }}"; 
+        var getSmiledUsers = "{{ path('notification_smiledusers') }}"; 
+        var getAutocompleteUsers = "{{ path('notification_autocomplete_getsmiledusers') }}"; 
+        var getAutocompleteMerchants = "{{ path('notification_autocomplete_getmerchants') }}"; 
+      
+        var saveNotificationData = "{{ path('notification_save') }}";
+        var list_notification_url = "{{ path('notification_index') }}";
+    </script>
+    <script src="{{ asset("public/js/notifications/bootstrap-toggle.min.js") }}"></script>
+    <script src="{{ asset("public/js/notifications/moment-with-locales.js") }} "></script>
+    <script src="{{ asset("public/js/notifications/bootstrap-datetimepicker.js") }}"></script>
+    <script src="{{ asset("public/js/plugins/jquery-ui.js") }}"></script>
+    <script src="{{ asset("public/js/notifications/jquery.timepicker.min.js") }}"></script>
+    <script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDJuOnMvkc9EggQnasyExAE5noKDlqesjw"></script>
+    
+     
+{% endblock smiled_js %}
+{% block content %}
+    <!-- Modal -->
+<form id="notification_form" enctype="multipart/form-data">
+    <div class="container-fluid">
+        <div class="scrollable-container" style="overflow-x: hidden; overflow-y: auto; height: 709px;width:1520px;">
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-3">
+                    <h3><b>CREATE NOTIFICATION</b></h3>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a>Notification</a>
+                        </li>
+                        <li class="active">
+                            <strong>Create Notification Form</strong>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="col-lg-6">
+                <div class="message"></div>
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-md-12 notification">    
+                    <ul id="tabs" class="nav nav-tabs">
+                        <li class="prev-tab"><a href=""> <span class="fa-arrow-left"></span> </a></li>
+                        <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+                        <li><a href="#moments" data-toggle="tab">Moments</a></li>
+                        <li><a href="#schedule" data-toggle="tab">Schedule</a></li>
+                        <li><a href="#distance" data-toggle="tab">Distance</a></li>
+                        <li class="next-tab"><a href=""> <span class="fa-arrow-right"></span> </a></li>
+                    </ul>
+                     <div class="pull-left">
+                     <button type="button" class="btn btn-outline btn-danger" id="btnCancel">Cancel</button>
+                     {% if notification is defined  %}
+                     <button type="button" class="btn btn-success" id="btnUpdate">Update</button> 
+                     {% else %}
+                     <button type="button" class="btn btn-outline btn-info" id="btnReset">Reset</button>
+                     <button type="button" class="btn   btn-primary" id="btnSaveDraft">Save Draft</button>
+                     <button type="button" class="btn btn-success" id="btnSave">Save Button</button> 
+                     {% endif %} 
+                    <input type="hidden" name="is_deleted" id="is_deleted" value=""/>
+                    <input type="hidden" name="notification_id" id="notification_id" value="{% if notification is defined  %}{{ notification.id ? notification.id : ''}}{% endif %}"/>
+                     <input type="hidden" name="smiled_moment_id" id="smiled_moment_id" value="{% if notification is defined  %}{{ notification.smiled_moment_id ? notification.smiled_moment_id : ''}}{% endif %}"/>
+                    <input type="hidden" id="sc_campaign_id" value="{% if notification is defined  %}{{ notification.sc_campaign_id ? notification.sc_campaign_id : ''}}{% endif %}"/>
+                    </div>
+                    <div class=tab-content>
+
+                        <div class="tab-pane active" id="general">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="campaign">Campaign</label>
+                                        <div> 
+                                            <select id="campaigns" name="campaign_id" class="form-control campaigns_list"  style="width:300px;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="campaign">Name</label>
+                                        <input  size="4" name="name" value="{% if notification is defined  %} {{ notification.name ? notification.name : '' }}{% endif %}"  id="name" class="form-control" placeholder="Enter Text">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-3">    
+                                    <div class="form-group">
+                                        <label>Short Description</label>
+                                        <textarea id="short_description" class="form-control"  name="short_description" placeholder="Short Description">{% if notification is defined  %}{{ notification.short_description ? notification.short_description : '' }}{% endif %}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Long Description</label>
+                                        <textarea rows="9" name="long_description" placeholder="Long Description"  class="form-control">{% if notification is defined  %}{{ notification.long_description ? notification.long_description : '' }}{% endif %}</textarea>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-3">                                       
+                                        <div class="form-group">
+                                            <label>Notification Image</label>
+                                            <input type="file" name="media_image" value="{% if notification is defined  %}{{ notification.notiifcation_image ? notification.notiifcation_image : '' }}{% endif %}" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
+                                            {# {% if notification is defined  %}
+                                            <img src="{{ notification.notiifcation_image ? asset(notification.notiifcation_image_thumb) : '' }}" />
+                                            {% endif %} #}
+                                            <div id="message"></div>
+                                        </div>
+                                     
+                               </div>
+                                
+                                <div class="col-sm-3 previewImagecolumnfirst">    
+                                    <div class="form-group">
+                                        <label class="subheading">Preview : </label>
+                                        <div class="notificationpreviewImage">
+                                        {% if notification is defined  %}
+                                        <div>&nbsp;<img  src="{{ asset("public/images/smiley.png") }}"  width="15px" />&nbsp;&nbsp;<span class="notifyname">{{ notification.name}}</span></div>
+                                                 {% else %}
+                                            <div>&nbsp;<img  src="{{ asset("public/images/smiley.png") }}"  width="15px" />&nbsp;&nbsp;<span class="notifyname">Smiled</span></div>
+                                             {% endif %}  
+                                            
+                                            {% if notification is defined  %}
+                                            <img class="imagepath" src="{{ notification.notiifcation_image ? asset(notification.notiifcation_image_thumb) : '' }}"  width="300px" height="213px"/>
+                                            {% else %}
+                                            <img class="imagepath"  src="{{ asset("public/images/topright.png") }}"  width="300px" height="213px" />
+                                            {% endif %}
+                                            {% if notification is defined  %}
+                                           <div class="short_desc">{{ notification.short_description[:95] ~ '...' }}</div>
+                                                 {% else %}
+                                        <div class="short_desc">Notification description-Lorem ipsum dolor sit
+                                                amet, consectetur adipiscing elit. Mauris
+                                                aliquet augue</div>
+                                              {% endif %}    
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <p>
+                               
+                                
+                            </p>
+
+                        </div>
+
+
+                        <div class=tab-pane id="moments">
+                            <div class="row">
+                                <div class = "col-xs-3">
+                                    <div class="form-group">
+                                        <label for="inputEmail">Smiled User</label>
+                                        <div class="input-group">
+                                            <input type="text" name="username" value="{% if notification is defined  %}{{ notification.username ? notification.username : '' }}{% endif %}"  class="form-control moment_smileduser smiled-user" id="users_auto">
+                                            <input type="hidden" name="smiled_user_id" class="users_auto_hidden" value="{% if notification is defined  %}{{ notification.user_id ? notification.user_id : '' }}{% endif %}">
+                                            <span class="input-group-addon btn-info whiteColor pickSmiledUser">&nbsp;&nbsp;PICK</span>
+                                            <span class="input-group-addon btn-warning whiteColor" onclick="$('#users_auto').val('');" >CLEAR</span>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="col-sm-1"></div>   
+
+                                <div class = "col-xs-3">
+                                    <div class="form-group">
+                                        <label for="inputEmail">Merchant</label>
+                                        <div class="input-group">
+                                            <input type="text"  class="form-control moment_merchant" id="merchants_auto"  value="{% if notification is defined  %}{{ notification.merchant_name1 ? notification.merchant_name1 : '' }}{% endif %}" >
+                                              <input type="hidden" name="sc_merchant_id" class="merchants_auto_hidden" value="{% if notification is defined  %}{{ notification.merchant_ids ? notification.merchant_ids : '' }}{% endif %}">
+                                            <span class="input-group-addon btn-info whiteColor pickMerchant">&nbsp;&nbsp;PICK</span>
+                                            <span class="input-group-addon btn-warning whiteColor" onclick="$('#merchants_auto').val('');" >CLEAR</span>
+                                        </div>
+                                    </div>
+                                </div> 
+
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-sm-3">    
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <textarea class="form-control" placeholder="Title" name="title">{% if notification is defined  %}{{ notification.title ? notification.title : '' }}{% endif %}</textarea>
+                                    </div>                                  
+                                </div>
+                                <div class="col-sm-1"></div>   
+                                <div class="col-sm-3">    
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <input type="text" class="form-control" name="location_name" placeholder="Location" name="address" value="{% if notification is defined  %}{{ notification.location_name ? notification.location_name : '' }}{% endif %}" onFocus="initializeAutocomplete()" id="locality" />
+                                        <input type="hidden" name="latitude" id="latitude" placeholder="Latitude" value="{% if notification is defined  %} {{ notification.lat ? notification.lat : '' }} {% endif %}" /> 
+                                        <input type="hidden" name="longitude" id="longitude" placeholder="Longitude" value="{% if notification is defined  %} {{ notification.lon ? notification.lon : '' }}{% endif %}" /> 
+                                    </div>
+                                </div> 
+                            </div>
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-sm-3">  
+                                    
+                                        <div class="form-group">
+                                            <label>Moments Image</label>
+                                            <input type="file"    name="moment_image" value="{% if notification is defined  %}{{ notification.media ? notification.media : '' }}{% endif %}" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" >
+                                        </div>
+                                     
+                                </div>
+
+                                <div class="col-sm-1"></div>
+
+             
+
+                                <div class="col-sm-3 previewImagecolumn">    
+                                    <div class="form-group">
+                                        <label class="subheading">Preview : </label>
+                                        <div class="momentspreviewImage">
+                                       
+                                        {% if notification is defined  %}
+                                        <div>&nbsp;<img  src="{{ asset("public/images/smiley.png") }}"  width="15px" />&nbsp;&nbsp;<span class="notifyname">{{ notification.name}}</span></div>
+                                                 {% else %}
+                                            <div>&nbsp;<img  src="{{ asset("public/images/smiley.png") }}"  width="15px" />&nbsp;&nbsp;<span class="notifyname">Smiled</span></div>
+                                             {% endif %}  
+                                            
+                                            {% if notification is defined  %}
+                                            <img class="imagepath" src="{{ notification.media_thumb ? asset(notification.media_thumb) : '' }}"  width="300px" height="213px"/>
+                                            {% else %}
+                                            <img class="imagepath"  src="{{ asset("public/images/topright.png") }}"  width="300px" height="213px" />
+                                            {% endif %}
+                                            {% if notification is defined  %}
+                                           <div class="short_desc">{{ notification.short_description[:95] ~ '...' }}</div>
+                                                 {% else %}
+                                        <div class="short_desc">Notification description-Lorem ipsum dolor sit
+                                                amet, consectetur adipiscing elit. Mauris
+                                                aliquet augue</div>
+                                              {% endif %} 
+ 
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="tab-pane" id="schedule">
+                            <div class="row">
+
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+                                        <label for="campaign">Notification Date</label>
+                                        <div class='input-group date'>
+                                            <input type='text' name="notification_start_date" id="notification_start_date"   value="{% if notification is defined  %}{{ notification.start_date|date('Y-m-d') ? notification.start_date|date('Y-m-d') : '' }}{% endif %}"   class="form-control" placeholder="Select Notification Date" />
+                                            <span class="input-group-addon">&nbsp;&nbsp;
+                                                <span class="fa fa-calendar fa-lg"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+ 
+                            <div class="col-sm-1"></div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="campaign">Notification End Date</label>
+                                            <div class="input-group date" >
+                                                <input type="text" name="notification_end_date" id="notification_end_date"  value="{% if notification is defined  %}{{ notification.end_date|date('Y-m-d') ? notification.end_date|date('Y-m-d') : '' }}{% endif %}"  class="form-control" placeholder="Select Notification Date" />
+                                                <span class="input-group-addon">&nbsp;&nbsp;
+                                                    <span class="fa fa-calendar fa-lg"></span>
+                                                </span>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                <label for="campaign">Week Day</label>
+                                        <input id="toggle-weekdayrepeat" type="checkbox" name="weekday"   checked="{% if notification is defined   %} {{ notification.weekly_scheduled ? 'checked' : '' }}{% endif %}"   data-toggle="toggle"> Repeat
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="checkbox" name="has_weekly_scheduled" checked="{% if notification is defined  %}{{ notification.has_weekly_schedule ? 'checked' : '' }}{% endif %}" id="has_weekly_schedule"  data-toggle="toggle"> Weekly Schedule
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <span class="showweekday displaynone">
+                            <div class="row" id="tab_logic" >
+                                <div class="col-xs-2 column">
+                                    <select name="schedule_weekday" id="weekday">
+                                    <option value="0">Week Day</option>
+                                    <option value="1" data-text="Sunday">Sunday</option>
+                                    <option value="2" data-text="Monday">Monday</option>
+                                    <option value="3" data-text="Tuesday" >Tuesday</option>
+                                    <option value="4" data-text="Wednesday" >Wednesday</option>
+                                    <option value="5" data-text="Thursday">Thursday</option>
+                                    <option value="6" data-text="Friday">Friday</option>
+                                    <option value="7" data-text="Saturday">Saturday</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-xs-2 column">
+
+                                    <div class='input-group date setWidthTime'  >
+                                        <input  type='text' name="time" class="form-control time" id="timepicker" />
+                                        <span class="input-group-addon">&nbsp;&nbsp;
+                                            <span class="icon-time icon-large"></span>
+                                        </span>
+                                    </div>
+                                     
+                                </div>
+                                <div class="col-xs-8 column"   >
+                                    <button type="button" onclick="addRow()" class="btn btn-default btn-lg">
+                                        <span class="fa fa-plus"></span>  
+                                    </button>
+                                </div>
+                                </span>
+                            </div>           
+                            <div class="row">
+                                <div class="col-sm-3">          
+                                    <br/>
+                                    <div class="existval"></div>
+                                    <input type="hidden"  name="weekdaytimes"  
+                                    value="{% if notification is defined %}{% if notification.weekly_scheduled %}{{ notification.weekdaytimes }}{% endif %}{% endif %}"  id="weekdaytime"/>
+                                    <table border="0" width="100%" >
+                                    <thead>
+                                    <tr> 
+                                    <th>WeekDay</th>
+                                    <th width="20px">Time</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if notification is defined   %} 
+                                    {% if notification.weekly_scheduled    %} 
+                                    {% for key, weeklyscheduled in notification.weekly_scheduled %} 
+                                         <tr><td>{{ weeklyscheduled.weekname }}</td><td class='setTd'>{{ weeklyscheduled.start_time }}</td></tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endif %}
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> <!-- END SCHEDULE-->
+
+                        <div class="tab-pane" id="distance">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    Send Notification to the Users Within
+                                    <input type="text" name="distance"  value="{% if notification is defined  %} {{ notification.distance  ? notification.distance : '' }}{% endif %}" class="form-control setWidth" placeholder="">
+                                    &nbsp; KM of Merchant   &nbsp;
+                                </div>
+                                <div class="col-sm-3 padding-0">         
+                                    <span class="input-group">
+                                        <input type="text"  value="{% if notification is defined  %}{{ notification.merchant_name1 ? notification.merchant_name1 : '' }}{% endif %}" class="form-control dist_merchants" id="dist_merchants_auto"> 
+                                        <input type="hidden" name="notification_dist_merchant"  value="{% if notification is defined  %}{{ notification.merchant_id ? notification.merchant_id : '' }}{% endif %}" class="dist_merchants_auto_hidden">
+                                        <span class="input-group-addon btn-info whiteColor pickDistanceMerchant">&nbsp;&nbsp;PICK</span>
+                                        <span class="input-group-addon btn-warning whiteColor clearButton" onclick="$('#dist_merchants_auto').val('');" >CLEAR</span>
+                                    </span>
+                                </div>
+                                <div class="col-sm-5 padding-01">  
+                                    IN Last <input type="text" name ="hours"  value="{% if notification is defined  %}{{ notification.hours ? notification.hours : '' }}{% endif %}" class="form-control setWidth" placeholder=""> Hours
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{{ include('MerchantBundle:Notification:modal.html.twig') }}   
+{% endblock content %}

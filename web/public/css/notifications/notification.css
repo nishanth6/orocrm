@@ -1,0 +1,421 @@
+.notification .tab-content {
+    border-top: 0px;
+    overflow: hidden;
+}
+
+.statistics {
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    font-size: 20px;
+}
+
+.upload-drop-zone {
+    height: 200px;
+    border-width: 2px;
+    margin-bottom: 20px;
+}
+
+.upload-drop-zone {
+    color: #ccc;
+    border-style: dashed;
+    border-color: #ccc;
+    line-height: 200px;
+    text-align: center
+}
+
+.upload-drop-zone.drop {
+    color: #222;
+    border-color: #222;
+}
+
+.panelsdiv {
+    border: 1px solid pink;
+    border-radius: 5px;
+}
+
+.panelsdiv>.panel-heading {
+    font-size: 10px;
+    background: #FB4038;
+    color: white;
+}
+
+.panelsdiv>.panel-body {
+    font-size: 20px;
+    background: pink;
+}
+
+.labelheading {
+    padding: 5px;
+    color: black;
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 18px;
+}
+
+.topmenus {
+    float: right;
+    margin-top: 10px;
+}
+
+.subheading {
+    background-color: dodgerblue;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 18px;
+}
+
+.notification_list .smiley {
+    border: 1px solid #ccc;
+    padding: 7px;
+    width: 277px;
+    font-size: 14px;
+    height: 293px;
+}
+
+.smileycontent {
+    padding: 12px;
+}
+
+.smileychat {
+    padding: 0px;
+    border: 1px solid lightgray;
+}
+
+.smiled {
+    letter-spacing: 1px;
+}
+
+.notification_list>li.active>a,
+.notification_list>li.active>a:focus {
+    background-color: #ccc;
+}
+
+.notification>li.active {
+    border-bottom: 2px solid maroon;
+}
+
+
+/*.nav-tabs > li > .active {
+    background:gray;
+}
+.next-tab {
+    font-weight: bold;
+    font-size: 18px;
+}*/
+
+.heading {
+    color: #808080;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: red;
+    font-size: 35px;
+}
+
+
+/*Create Notification Css :*/
+
+notification #tabs {
+    border: none;
+}
+
+.notification .nav-tabs {
+    border: none;
+}
+
+.notification .tab-content {
+    border-top: 1px solid gray;
+}
+
+.notification div.tab-pane {
+    margin-top: 15px;
+}
+
+.notification .form-control {
+    height: auto;
+}
+
+.notification .nav-tabs>li.active>a,
+.notification>li.active>a:focus,
+.notification>li.active>a:hover {
+    /* border-bottom: 3px solid darkred; */
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.notification .imageuploadify .imageuploadify-images-list span.imageuploadify-message {
+    font-size: 12px;
+}
+
+.notification .imageuploadify .imageuploadify-images-list button.btn-default {
+    /* display:none; */
+}
+
+.notification .imageuploadify {
+    min-height: 290px !important;
+    width: 386px !important;
+}
+
+.notification .btn-outline {
+    color: inherit;
+    background-color: transparent;
+    transition: all .5s;
+}
+
+.notification .input-group {
+    margin-top: 2px;
+}
+
+.notification .whiteColor {
+    color: white;
+}
+
+.addcol {
+    margin-top: 12px;
+}
+
+.notification div.table {
+    display: table;
+    width: 300pt;
+    height: 100pt;
+}
+
+.notification div.table .tbody {
+    display: table;
+    width: 300pt;
+    height: 100pt;
+}
+
+.notification div.tr {
+    display: table-row;
+}
+
+.notification div.td {
+    display: table-cell;
+    position: relative;
+    border: 1px solid lightgray;
+    width: auto;
+}
+
+.notification div.inner {
+    position: absolute;
+    left: 7px;
+    right: 0;
+    top: 3px;
+    bottom: 0;
+}
+
+.notification .previewImage {
+    border: 2px solid #d2d2d2;
+    position: relative;
+    min-height: 300px;
+    min-width: 250px;
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    text-align: left;
+    background-color: #fff;
+    color: #3AA0FF;
+}
+
+.notification .col-sm-3.previewImagecolumn {
+    position: relative;
+    top: -175px;
+    right: 19px;
+    float: right;
+    color: black;
+}
+
+.notification .col-sm-3.previewImagecolumnfirst {
+    position: relative;
+    top: -81px;
+    right: 19px;
+    float: right;
+}
+
+.notification .previewImage h6 {
+    padding: 6px;
+    font-size: 14px;
+    color: black;
+}
+
+.notification .padding-0 {
+    margin-left: -138px;
+}
+
+.notification .padding-01 {
+    margin-left: -20px;
+}
+
+.notification .setWidth {
+    width: 17px;
+}
+
+.notification .setWidthTime {
+    width: 130px;
+}
+
+.notification .select2-container--default .select2-selection--single {
+    background-color: none;
+    border: 0px !important;
+    border-radius: 0px;
+}
+
+.setmodal {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.modal {
+    background: none! important;
+}
+
+.modal-backdrop,
+.modal-backdrop.fade.in {
+    opacity: 0;
+    z-index: 0;
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: 0;
+}
+
+#ui-datepicker-div {
+    width: 310px !important;
+    /*what ever width you want*/
+}
+
+#ui-datepicker-div .ui-datepicker-week-end {
+    width: 300px !important;
+    letter-spacing: 0px;
+    column-width: 0px;
+    column-gap: 0px;
+}
+
+.notification table {
+    border: 0;
+    width: 109%;
+    margin: 2px;
+}
+
+.notification tbody {
+    outline: 0.1em solid #ccc;
+    /* border: 1px solid gray; */
+}
+
+.notification thead {
+    outline: 0.1em solid #ccc;
+}
+
+.notification thead th {
+    outline: 0.1em solid #ccc;
+    border-bottom: 0px solid #ccc;
+    border-right: 0px solid #ccc;
+    border-left: 0px solid #ccc;
+    border-top: 0px solid #ccc;
+}
+
+.notification table th div,
+table td div {
+    width: 107px;
+}
+
+.notification th,
+td {
+    text-align: left;
+    padding: 8px;
+    width: 30px;
+}
+
+.notification td {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+.notification .setTd {
+    width: 20px;
+}
+
+.notification .displaynone {
+    display: none;
+}
+
+.notification .notificationpreviewImage {
+    width: 300px;
+    height: 310px;
+    border: 1px solid #ccc;
+    padding: 14px;
+}
+
+.notification .momentspreviewImage {
+    width: 300px;
+    height: 310px;
+    border: 1px solid #ccc;
+    padding: 14px;
+}
+
+.notification .imagepath {
+    height: 200px;
+    left: 50%;
+    position: relative;
+    top: 4px;
+    transform: translate(-49%, -3%);
+    width: auto;
+    padding: 5px;
+}
+
+.message {
+    font-size: 15px;
+    font-weight: bolder;
+    width: 100%;
+    margin-top: 20px;
+    min-height: 20px;
+}
+
+.notification .alert {
+    min-height: 20px !important;
+}
+
+.notification_list .nav-tabs>li {
+    width: 100%;
+}
+
+.notification_list .heading {
+    color: #808080;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: red;
+    font-size: 35px;
+}
+
+.allbuttons {
+    position: absolute;
+    top: -61px;
+    right: 35px;
+}
+
+.notification_list .nav>li>a:hover,
+.notification_list .nav>li>a:focus {
+    background-color: none !important;
+}
+
+.notification_list .nav>li>a:hover,
+.nav>li>a:focus {
+    width: 100% !important;
+}
+
+.notification_list .nav-tabs>li {
+    width: 100% !important;
+}
+
+.notification_list>li {
+    width: 100% !important;
+}

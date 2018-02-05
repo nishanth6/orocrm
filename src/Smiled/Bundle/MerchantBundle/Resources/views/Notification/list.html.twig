@@ -1,0 +1,261 @@
+{% extends 'MerchantBundle:actions:ajax_ui.html.twig' %}
+{# extends "OroUIBundle:Default:index.html.twig" #}
+{% set pageTitle = 'NOTIFICATION' %}
+{% block smiled_css %}
+{{ parent() }}
+
+<link rel="stylesheet" href="{{ asset("public/css/bootstrap.min.css")}}" >
+<link rel="stylesheet" href="{{ asset("public/css/style.css") }}">
+<link rel="stylesheet" href="{{ asset("public/css/notifications/notification.css") }}">
+
+{%endblock smiled_css %}
+{% block smiled_js %}
+{{ parent() }}
+<script src="{{ asset("public/js/jquery-3.1.0.min.js") }}"></script>
+<script src="{{ asset("public/js/bootstrap.min.js") }}"></script>
+
+{% endblock smiled_js %}
+
+{% block content %}
+
+<div class="container-fluid">
+   <div class="scrollable-container" style="overflow-x: hidden; overflow-y: auto; height: 709px;">
+      <!-- 1st row -->
+      <div class="row">
+         <div class="col-sm-3">
+            <h3><b style="color:#808080; text-decoration-line: underline;text-decoration-style: solid; text-decoration-color: red;font-size: 35px;">NOTIFICATION</b></h3>
+         </div>
+          
+         <div class="col-sm-3 pull-right topmenus">
+            {# <a class="btn btn btn-info" href="{{ path('notification_create') }}" title="Create Notification">DUPLICATE</a>
+            <a class="btn btn-danger" href="{{ path('notification_create') }}" title="Create Notification">DELETE</a>
+            <a class="btn btn-info btnEdit" href="{{ path('notification_create') }}" title="Create Notification">EDIT</a>
+            <a class="btn btn-primary" href="{{ path('notification_create') }}" title="Create Notification">ADD NEW</a> #}
+         </div>
+      </div>
+      <!--    2nd row -->
+      <div class="row">
+         <div class="col-sm-3">
+             <ul id="tabs" class="nav nav-tabs tabs-left notification_list" >
+             {% for key, notification in notifications %}
+             {% if key == 0 %} 
+             {% set showactive = 'active' %}
+             {% else %}
+             {% set showactive = '' %}
+             {% endif %}
+              {# set dayname =   notification.weekday=1 ? 'sunday' : '' #}
+             {# set current_project = (1) ? 'active' : '' #}
+               <li class="{{ showactive }}" >
+                  <a href="#notification{{key}}" data-toggle="tab">
+                     <b>{{ notification.name|e }}</b>
+                     <h6>{{ notification.short_description|e }}</h6>                 
+                    
+                  </a>
+               </li>
+               
+            {% endfor %}
+            </ul>
+         </div>
+         <div class="col-sm-9">
+            <!-- Tab panes -->
+            <div class="tab-content">
+              {% for keyy, notification in notifications %}
+               
+              {% if keyy == 0 %} 
+                {% set showactive = 'active' %}
+                {% else %}
+                {% set showactive = '' %}
+                {% endif %}
+             <div class="tab-pane {{ showactive }}" id="notification{{keyy}}">
+              
+              <div class="pull-right allbuttons">
+                  <a class="btn btn btn-info" href="{{ path('notification_duplicate' , { 'id':notification.id }) }}" title="Duplicate Notification">DUPLICATE</a>
+                  <a class="btn btn-danger btnDelete" href="{{ path('notification_delete', { 'id':notification.id }) }}" title="Delete Notification">DELETE</a> 
+                  <a class="btn btn-info btnEdit" href="{{ path('notification_edit', { 'id':notification.id }) }}" title="Edit Notification">EDIT</a> 
+                  <a class="btn btn-primary" href="{{ path('notification_create') }}" title="Create Notification">ADD NEW</a>
+               </div>
+                  <div class="col-xs-5">
+                     <div class="form-group">
+                        <label class="subheading">Name :</label>
+                        <p>
+                          {{ notification.name }}
+                        </p>
+                     </div>
+                     <div class="form-group">
+                        <label class="subheading">Short Description:</label>
+                        <p>
+                           {{ notification.short_description }}
+                        </p>
+                     </div>
+                     <div class="form-group">
+                        <label class="subheading">Long Description :</label>
+                        <p>
+                           {{ notification.long_description }}
+                        </p>
+                     </div>
+                     <div class="col-xs-8">
+                        <div class="smileychat">
+                           <p>
+                              <img src="{{ asset("public/images/smiley.png") }}" class="girlimage" width="10px"/>&nbsp; <span class="smiled">Smiled</span>
+                           </p>
+                           <img src="{{ notification.image }}" width="280px" height="115px"/>
+                           <p class="conentbelowimg">
+                              {# {{ date().timestamp }} The prawn birya {{ 'now'|date('U') }} #}
+                              <img src="{{ asset("public/images/emoji.png") }}" class="emojiimage" alt="image not found" width="15px"/>
+                              <img src="{{ asset("public/images/message.png") }}" class="messageimage" width="40px"/>
+                           </p>
+                           <p class="conentbelowimg">
+                               {{ notification.short_description }}
+                           </p>
+                           <img src="{{ asset("public/images/location.png") }}" class="locationimage" alt="image not found" width="15px"/>
+                           <p class="conentbelowimg location">
+                             {{ notification.location_name|e }}
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xs-4">
+                     <div class="form-group">
+                        <label class="subheading">CAMPAIGN NAME :</label>
+                        <p>
+                            {{ notification.campaign_name.getCampaignName() }}  
+                        </p>
+                     </div>
+                     <div class="form-group">
+                         
+                        <br/>
+                        <label class="subheading pull-left">START DATE :</label>&nbsp;<label class="subheading pull-right">END DATE :</label>
+                        <span class="pull-left">{{ notification.notification_start_date|date('Y-m-d') }} :</span><span class="pull-right">{{ notification.notification_end_date|date('Y-m-d') }}</span>
+                     </div>
+                     <div class="form-group">
+                        <table>
+
+                           <thead>
+                              <th>
+                                 WEEK DAY
+                              </th>
+                              <th>
+                                 TIME
+                              </th>
+                           </thead>
+                           <tbody>
+                          
+                           {% for keys, notificationweekday  in notification.weekly_scheduled %}
+                            
+            
+              
+                
+            <tr>
+                <td>
+                   {% if notificationweekday.getWeekday()=='1' %}
+                      Sunday
+                   {% endif %}
+
+                   {% if notificationweekday.getWeekday()=='2' %}
+                      Monday
+                   {% endif %}
+
+                   {% if notificationweekday.getWeekday()=='3' %}
+                      Tuesday
+                   {% endif %}
+
+                   {% if notificationweekday.getWeekday()=='4' %}
+                      Wednesday
+                   {% endif %}
+
+                   {% if notificationweekday.getWeekday()=='5' %}
+                      Thursday
+                   {% endif %}
+
+                   {% if notificationweekday.getWeekday()=='6' %}
+                      Friday
+                   {% endif %}
+
+                   {% if notificationweekday.getWeekday()=='7' %}
+                      Saturday
+                   {% endif %}    
+                </td>
+
+                <td>
+                     {{notificationweekday.getStartTime()}} 
+                </td>
+              </tr> 
+              
+              {% endfor %}
+                  
+
+           
+                            
+                              
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="col-xs-3">
+                     <div class="form-group">
+                        <label class="subheading">PREVIEW :</label>
+                        <div class="smiley">
+                           <p>
+                              <img src="{{ asset("public/images/smiley.png") }}" class="butterfly" width="10px"/>
+                              <span class="smiled">Smiled</span>
+                           </p>
+                           <img src="{{ notification.image }}" alt="image not found" width="290px" height="115px"/>
+                           <p class="smileycontent">
+                              {{ notification.short_description }}
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xs-12">
+                     <br/>
+                     <div class="row">
+                        <div class="statistics">
+                           <strong>STATISTICS</strong>
+                        </div>
+                        <br/>
+                        <div class="col-md-3 col-1 ">
+                           <div class="Panel with panel-danger class panelsdiv">
+                              <div class="panel-heading">No Of Users Notification Sent to</div>
+                              <div class="panel-body">12.25K</div>
+                           </div>
+                        </div>
+                        <div class="col-md-3 col-2 ">
+                           <div class="Panel with panel-danger class panelsdiv">
+                              <div class="panel-heading">No Of Users Opened Notification</div>
+                              <div class="panel-body">11.5K</div>
+                           </div>
+                        </div>
+                        <div class="col-md-3 col-3 ">
+                           <div class="Panel with panel-danger class panelsdiv">
+                              <div class="panel-heading">No Of Users Recieved Offer From Notification</div>
+                              <div class="panel-body">8.1K</div>
+                           </div>
+                        </div>
+                        <div class="col-md-3 col-4 ">
+                           <div class="Panel with panel-danger class panelsdiv">
+                              <div class="panel-heading">No Of Users redeemed
+                                 Offers
+                              </div>
+                              <div class="panel-body">8.0K</div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+             {% endfor %}
+
+
+
+
+
+              
+            </div>
+         </div>
+         <div class="clearfix">
+         </div>
+      </div>
+   </div>
+</div>
+ 
+
+{% endblock content %}

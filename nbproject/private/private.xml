@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/var/www/html/orocrm/web/app.php</file>
+            <file>file:/var/www/html/orocrm/src/Smiled/Bundle/MerchantBundle/Resources/config/routing.yml</file>
+            <file>file:/var/www/html/orocrm/app/autoload.php</file>
+            <file>file:/var/www/html/orocrm/src/Smiled/Bundle/MerchantBundle/Tests/Controller/DefaultControllerTest.php</file>
+            <file>file:/var/www/html/orocrm/app/config/routing.yml</file>
+            <file>file:/var/www/html/orocrm/src/Smiled/Bundle/MerchantBundle/Controller/NotificationController.php</file>
+            <file>file:/var/www/html/orocrm/app/AppKernel.php</file>
+            <file>file:/var/www/html/orocrm/src/Smiled/Bundle/MerchantBundle/Resources/views/Notification/update.html.twig</file>
+            <file>file:/var/www/html/orocrm/src/Smiled/Bundle/MerchantBundle/MerchantBundle.php</file>
+            <file>file:/var/www/html/orocrm/web/public/js/notifications/notifications-list.js</file>
+        </group>
+    </open-files>
+</project-private>

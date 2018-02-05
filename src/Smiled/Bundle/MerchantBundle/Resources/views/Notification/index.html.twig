@@ -1,0 +1,83 @@
+{% extends 'MerchantBundle:actions:ajax_ui.html.twig' %}
+{# extends "OroUIBundle:Default:index.html.twig" #}
+{% set pageTitle = 'NOTIFICATION' %}
+{% block smiled_css %}
+{{ parent() }}
+
+<link rel="stylesheet" href="{{ asset("public/css/bootstrap.min.css")}}" >
+<link rel="stylesheet" href="{{ asset("public/css/style.css") }}">
+<link rel="stylesheet" href="{{ asset("public/css/notifications/notification.css") }}">
+
+{%endblock smiled_css %}
+{% block smiled_js %}
+{{ parent() }}
+<script src="{{ asset("public/js/jquery-3.1.0.min.js") }}"></script>
+<script src="{{ asset("public/js/bootstrap.min.js") }}"></script>
+
+{% endblock smiled_js %}
+{% block content %}
+
+<div class="container notification_list">
+   
+      <!-- 1st row -->
+      <div class="row">
+         <div class="col-sm-3">
+            <h3 class="heading"><b>NOTIFICATION</b></h3>
+         </div>
+      </div>
+      <!--    2nd row -->
+      <div class="col-xs-3"> <!-- required for floating -->
+    <!-- Nav tabs -->
+
+     <ul id="tabs" class="nav nav-tabs tabs-left" >
+             {% for key, notification in notifications %}
+             {% if key == 0 %} 
+             {% set showactive = 'active' %}
+             {% else %}
+             {% set showactive = '' %}
+             {% endif %}
+             {# set current_project = (1) ? 'active' : '' #}
+               <li class="{{ showactive }}" >
+                  <a href="#notification{{key}}" data-toggle="tab">
+                     <b>{{ notification.name|e }}</b>
+                     <h6>{{ notification.short_description|e }}</h6>
+                    
+                  </a>
+               </li>
+               
+            {% endfor %}
+    </ul>
+
+     
+</div>
+ 
+<div class="col-xs-9">
+    <!-- Tab panes -->
+    <div class="tab-content">
+       {% for keyy, notification in notifications %}
+              {% if keyy == 0 %} 
+                {% set showactive = 'active' %}
+                {% else %}
+                {% set showactive = '' %}
+                {% endif %}
+             <div class="tab-pane {{ showactive }}" id="notification{{keyy}}">
+             <div class="pull-right">
+            <a class="btn btn btn-info" href="{{ path('notification_create') }}" title="Duplicate Notification">DUPLICATE</a>
+            <a class="btn btn-danger" href="{{ path('notification_create') }}" title="Delete Notification">DELETE</a>
+            <a class="btn btn-info" href="{{ path('notification_edit') }}?id={{notification.id}}" title="Edit Notification">EDIT</a>
+            <a class="btn btn-primary" href="{{ path('notification_create') }}" title="Create Notification">ADD NEW</a>
+<hr>
+</div>
+
+             </div>
+       {% endfor %} 
+</div>
+</div>
+
+             
+         <div class="clearfix">
+ 
+</div>
+ 
+
+{% endblock content %}
