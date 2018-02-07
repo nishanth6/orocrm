@@ -1,7 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: "@SimpleBundle/Resources/config/services.yml" }
+    - { resource: "@OroCRMTaskBundle/Resources/config/services.yml" }
+    - { resource: "@DusanSimpleBundle/Resources/config/services.yml" }
    
 framework:
     #esi:             ~

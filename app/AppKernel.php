@@ -11,7 +11,9 @@ class AppKernel extends OroKernel
         $bundles = array(
         //bundles,
             new Smiled\Bundle\MerchantBundle\MerchantBundle(),
-            new Dusan\Bundle\SimpleBundle\SimpleBundle(),
+           // new Dusan\Bundle\SimpleBundle\SimpleBundle(),
+            new OroCRM\Bundle\TaskBundle\OroCRMTaskBundle(),
+            new Dusan\Bundle\SimpleBundle\DusanSimpleBundle(),
         );
 
         if ('dev' === $this->getEnvironment()) {

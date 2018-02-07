@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 namespace Dusan\Bundle\SimpleBundle\Tests\Controller;
 
@@ -14,4 +14,4 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertContains('Hello World', $client->getResponse()->getContent());
     }
-}
+} -->

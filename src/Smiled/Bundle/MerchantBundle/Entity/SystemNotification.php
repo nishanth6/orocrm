@@ -426,9 +426,17 @@ class SystemNotification
     public function setCreatedOn(\DateTime $created_on)
     {
 
-        $this->created_on = $created_on;
+        // $this->created_on = $created_on;
 
-        return $this;
+        // return $this;
+        $date = new \DateTime();
+     $sss = (array) $date;
+$timestamp = $date['date']; 
+// If you must have use time zones
+// $date = new \DateTime('now', new \DateTimeZone('Europe/Helsinki'));
+$val = $date->setTimestamp($timestamp);
+//echo $date->format($datetimeFormat);
+$this->setCreatedOn($val);
     }
     /**
      * Get created_on

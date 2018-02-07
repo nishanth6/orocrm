@@ -1,7 +1,17 @@
-simple:
-    resource: "@SimpleBundle/Controller/"
+dusan_simple:
+    resource: "@DusanSimpleBundle/Controller/"
     type:     annotation
     prefix:   /
+
+oro_crm_task:
+    resource: "@OroCRMTaskBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+# simple:
+#     resource: "@SimpleBundle/Controller/"
+#     type:     annotation
+#     prefix:   /
 
 merchant:
     resource: "@MerchantBundle/Resources/config/routing.yml"

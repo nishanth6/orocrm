@@ -3,7 +3,8 @@
 namespace Smiled\Bundle\MerchantBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Zend\Stdlib\DateTime;
+ 
 /**
  * @ORM\Entity
  * @ORM\Table(name="smiled_moment")
@@ -284,17 +285,29 @@ class SmiledMoment
 
 
 
-    /**
+     /**
      * Set created_on
      *
-     * @param \DateTime $created_on
+     * @param integer $created_on
      * @return SmiledMoment
      */
     public function setCreatedOn($created_on)
     {
-        $this->created_on = $created_on;
+       $var = $created_on->getTimestamp();
+       $timezone = $created_on->getTimeZone();
 
-        return $this;
+    //     $datetime = (array) $created_on;
+    //     $date = new DateTime();
+    //     $date->setTimezone($datetime['timezone']);
+    //    $var  =  strtotime($datetime['date']);
+       
+        $this->created_on = $var;
+       
+        var_dump($var);
+       // var_dump($timezone);
+       // echo'<pre>'; print_r($timezone);
+       // die('dsfg');
+        return $var;
     }
     /**
      * Get created_on
@@ -313,7 +326,8 @@ class SmiledMoment
      */
     public function setCreatedValues()
     {
-        $this->setCreatedOn(new \DateTime()); 
+
+        $this->setCreatedOn(new \DateTime());
     }
 
 

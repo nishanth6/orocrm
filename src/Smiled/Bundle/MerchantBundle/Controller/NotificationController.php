@@ -422,8 +422,11 @@ class NotificationController extends Controller
          $smiledMoment->setLat($request->get('latitude'));
          $smiledMoment->setLon($request->get('longitude'));
          $smiledMoment->setLocationName($request->get('location_name'));
+         //$smiledMoment->setCreatedOn1(1274123617);
          $smiledMoment->setCreatedValues();
-       
+         //$smiledMoment->setCreatedValues();
+        // $smiledMoment->setCreatedOn(getCreatedOn());
+      // var_dump($smiledMoment); exit;
         $em = $this->getDoctrine()->getManager();
         $em->persist($smiledMoment);
         $em->flush();
